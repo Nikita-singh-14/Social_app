@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const res = await api.get('/auth/me');
+          const res = await api.get('/api/auth/me');
           setUser(res.data);
         } catch (error) {
           console.error('Invalid token or expired:', error);
@@ -26,13 +26,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await api.post('/auth/login', { email, password });
+    const res = await api.post('/api/auth/login', { email, password });
     localStorage.setItem('token', res.data.token);
     setUser(res.data.user);
   };
 
   const signup = async (username, email, password) => {
-    const res = await api.post('/auth/signup', { username, email, password });
+    const res = await api.post('/api/auth/signup', { username, email, password });
     localStorage.setItem('token', res.data.token);
     setUser(res.data.user);
   };
