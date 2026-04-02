@@ -19,7 +19,11 @@ const PostCard = ({ post: initialPost }) => {
   const [commenting, setCommenting] = useState(false);
 
   const hasLiked = user && post.likes.includes(user.username);
-  const imageUrl = post.imageUrl ? `http://localhost:5000${post.imageUrl}` : null;
+  const BASE_URL = "https://social-app-backend-p1pq.onrender.com";
+  const imageUrl = post.imageUrl 
+  ? `${BASE_URL}${post.imageUrl}` 
+  : null;
+  //const imageUrl = post.imageUrl ? `http://localhost:5000${post.imageUrl}` : null;
 
   const handleLike = async () => {
     if (!user) return alert("Please login to like this post");
@@ -33,7 +37,7 @@ const PostCard = ({ post: initialPost }) => {
     setPost({ ...post, likes: newLikes });
 
     try {
-      const res = await api.post(`/posts/${post._id}/like`);
+      const res = await api.post(`/api/posts/${post._id}/like`);
       setPost({ ...post, likes: res.data });
     } catch (err) {
       console.error("Like error", err);
@@ -49,7 +53,7 @@ const PostCard = ({ post: initialPost }) => {
 
     setCommenting(true);
     try {
-      const res = await api.post(`/posts/${post._id}/comment`, { text: commentText });
+      const res = await api.post(`/api/posts/${post._id}/comment`, { text: commentText });
       setPost({ ...post, comments: res.data });
       setCommentText('');
     } catch (err) {
