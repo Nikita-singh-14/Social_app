@@ -39,7 +39,7 @@ const CreatePost = ({ onPostCreated }) => {
     if (image) formData.append('image', image);
 
     try {
-      const res = await api.post('/posts', formData, {
+      const res = await api.post('/api/posts', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
